@@ -1,26 +1,31 @@
-from django.shortcuts import render,redirect
-from django.contrib.auth.models import  User
+
+from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+
+
 # Create your views here.
+
 def signup(request):
     if request.user.is_authenticated:
-       return redirect('index')
-
-    if request.method =="POST":
-        username =request.POST.get('username')
-        password =request.POST.get('password')
-        if username and password :
+        return redirect('index')
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        if username and password:
             try:
                 User.objects.get(username=username)
-                messages.error(request,"This user already exists !")
+                messages.error(request, 'User already exists')
             except User.DoesNotExist:
-                User.objects.create_user(username=username,password=password)
-                messages.success(request,"Sign Up successfully")
+                User.objects.create_user(username=username, password=password)
+                messages.success(request, 'Signup success')
                 return redirect('signin')
-    messages.error(request, "Username or password is misssing ")
-    return render(request,'signup.html') 
+        else:
+            messages.error(request, "Username or Password is missing!")
+    return render(request, 'signup.html')
+
 
 def signin(request):
     if request.user.is_authenticated:
@@ -43,8 +48,12 @@ def signin(request):
         messages.error(request, "Username or Password is missing!")
     return render(request, 'signin.html')
 
+
 @login_required
 def signout(request):
     logout(request)
-    messages.info(request,"Logged out!")
+    messages.info(request, "Logged out!")
     return redirect('signin')
+
+    
+
