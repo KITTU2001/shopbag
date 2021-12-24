@@ -16,7 +16,7 @@ def signup(request):
                 User.objects.get(username=username)
                 messages.error(request,"This user already exists !")
             except User.DoesNotExist:
-                user = User.objects.create_user(username=username,password=password)
+                User.objects.create_user(username=username,password=password)
                 messages.success(request,"Sign Up successfully")
                 return redirect('signin')
     messages.error(request, "Username or password is misssing ")
