@@ -31,8 +31,8 @@ ALLOWED_HOSTS = ['127.0.0.1','localhost','shopbag123.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
-    'accounts.apps.AccountsConfig',
-    'bag.apps.BagConfig',
+    'accounts',
+    'bag',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
